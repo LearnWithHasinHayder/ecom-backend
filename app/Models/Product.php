@@ -11,4 +11,8 @@ class Product extends Model
     protected $fillable = [
         'id', 'title', 'price', 'description', 'category', 'image', 'rating_rate', 'rating_count'
     ];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

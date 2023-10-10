@@ -17,7 +17,6 @@ class OrderController extends Controller
         $order->total_amount = $request->total_amount;
         $order->save();
         $order->products()->attach($request->products);
-
         $order->save();
         return $order;
     }
@@ -30,7 +29,18 @@ class OrderController extends Controller
 
     function getOrderDetails($id, Request $request){
         $order = Order::findOrFail($id);
-        $order->products;
+        $order->products->map(function($product){
+            unset($product->description);
+            unset($product->category);
+            unset($product->image);
+            unset($product->rating);
+            unset($product->rating_count);
+            // unset($product->created_at);
+            // unset($product->updated_at);
+            unset($product->pivot->order_id);
+            unset($product->pivot->product_id);
+            return $product;
+        });
         return $order;
     }
 

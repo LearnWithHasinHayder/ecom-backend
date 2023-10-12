@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Order;
+use App\Models\Wishlist;
 class User extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -50,5 +51,10 @@ class User extends Authenticatable {
     //relationwhip with orders
     function orders(){
         return $this->hasMany(Order::class);
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
     }
 }

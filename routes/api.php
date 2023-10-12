@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\WishlistController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -57,4 +58,19 @@ Route::get(
 Route::get(
     '/orders/{id}',
     [OrderController::class, 'getOrderDetails']
+)->middleware('auth:sanctum');
+
+Route::post(
+    '/wishlist',
+    [WishlistController::class, 'addToWishList']
+)->middleware('auth:sanctum');
+
+Route::get(
+    '/wishlist',
+    [WishlistController::class, 'getWishList']
+)->middleware('auth:sanctum');
+
+Route::delete(
+    '/wishlist/{product_id}',
+    [WishlistController::class, 'removeFromWishList']
 )->middleware('auth:sanctum');

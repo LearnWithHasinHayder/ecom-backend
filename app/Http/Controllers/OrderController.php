@@ -24,6 +24,20 @@ class OrderController extends Controller
     function getUserOrders(){
         $user = auth()->user();
         $orders = $user->orders()->with('products')->get();
+        $orders->map(function($order){
+            $order->products->map(function($product){
+                unset($product->description);
+                unset($product->category);
+                unset($product->image);
+                unset($product->rating);
+                unset($product->rating_count);
+                // unset($product->created_at);
+                // unset($product->updated_at);
+                unset($product->pivot->order_id);
+                unset($product->pivot->product_id);
+                return $product;
+            });
+        });
         return $orders;
     }
 
@@ -43,6 +57,15 @@ class OrderController extends Controller
         });
         return $order;
     }
+
+    // function deleteOrder(Request $request, $id){
+    //     $user = auth()->user();
+    //     $order = Order::findOrFail($id);
+    //     $order->delete();
+    //     return response()->json([
+    //         'message' => 'Order deleted successfully'
+    //     ]);
+    // }
 
     function allOrders(){
         $orders = Order::with('products')->get();

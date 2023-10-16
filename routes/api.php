@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CouponController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -73,4 +74,9 @@ Route::get(
 Route::delete(
     '/wishlist/{product_id}',
     [WishlistController::class, 'removeFromWishList']
+)->middleware('auth:sanctum');
+
+Route::post(
+    '/coupon',
+    [CouponController::class, 'validateCoupon']
 )->middleware('auth:sanctum');

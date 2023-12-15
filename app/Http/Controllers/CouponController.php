@@ -24,6 +24,11 @@ class CouponController extends Controller
             'type' => 'percentage',
             'value' => 20
         ],
+        '30OFF'=>[
+            'type' => 'percentage',
+            'value' => 20,
+            'expired' => 1
+        ],
     ];
     function validateCoupon(Request $request){
         //only validate if the user is authenticated
